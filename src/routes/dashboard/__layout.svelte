@@ -127,11 +127,11 @@
             </button>
           </div>
           <div class="mt-3 px-2 space-y-1">
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
+            <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
   
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
+            <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
   
-            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
+            <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
           </div>
         </div>
       </div>
@@ -148,3 +148,22 @@
       </div>
     </main>
   </div>
+
+
+  <script context="module">
+
+    import { user }  from "$lib/store"
+
+    console.log("I went through dashboard though");
+
+    export async function load() {
+      if(user.isLoggedIn) {
+        return
+      } else {
+        return {
+            status: 302,
+            redirect: "/"
+        };
+      }
+    }
+</script>

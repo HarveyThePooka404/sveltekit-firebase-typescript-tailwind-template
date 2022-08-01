@@ -4,16 +4,15 @@
 
 <script lang="ts">
 
-import SignIn from '$lib/templates/SignIn.svelte';
+import SignUp from '$lib/templates/SignUp.svelte';
 
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Sign Up</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
-	<SignIn />
+	<SignUp />
 </section>
-

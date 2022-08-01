@@ -1,25 +1,32 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { doc, getFirestore } from "firebase/firestore/lite";
-
+import { ref, set } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyAw7cB7BaZZMm_Rj04qeKPGZHYNjUaSIIM',
-    authDomain: 'bloggo-d9c26.firebaseapp.com',
-    projectId: 'bloggo-d9c26',
-    storageBucket: 'bloggo-d9c26.appspot.com',
-    messagingSenderId: '913768262787',
-    appId: '1:913768262787:web:ced0150fe7c311c1bc7fb6',
-    measurementId: 'G-2BS7HTS6X5'
+  apiKey: "AIzaSyC0tl-ziDpHATusTkEWK_lO-t7XAlkh7t0",
+  authDomain: "vue-weekly.firebaseapp.com",
+  databaseURL: "https://vue-weekly-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "vue-weekly",
+  storageBucket: "vue-weekly.appspot.com",
+  messagingSenderId: "668493575554",
+  appId: "1:668493575554:web:c768ca204972d18cb58b9b"
 };
 
-// Initialize our firebase for our application
-let app = initializeApp(firebaseConfig);
+
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-let db = getFirestore(app);
-//const userDoc = (userId) => doc(db, "users", userId);
+const db = getDatabase(app);
+
+
+function createDoc(collection, data) {
+  set(ref(db, collection), {
+    ...data
+  });
+} 
+
 
 export {
     auth,
     db,
+    createDoc, 
 }
