@@ -153,17 +153,19 @@
   <script context="module">
 
     import { user }  from "$lib/store"
-
+    
     console.log("I went through dashboard though");
+    console.log(user)
 
     export async function load() {
-      if(user.isLoggedIn) {
+      if(user) {
         return
       } else {
-        return {
+        console.log("why not?")
+ /*        return {
             status: 302,
             redirect: "/"
-        };
+        }; */
       }
-    }
+    } 
 </script>

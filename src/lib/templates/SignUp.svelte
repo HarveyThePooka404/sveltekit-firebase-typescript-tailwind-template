@@ -5,32 +5,30 @@
         <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create An Account</h2>
       </div>
-      <form class="mt-8 space-y-6">
         <input type="hidden" name="remember" value="true">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>            
             <label for="first-name" class="sr-only">First Name</label>
-            <input id="first-name" value={firstName} name="First Name" type="string" autocomplete="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="First Name">
+            <input id="first-name" bind:value={firstName} name="First Name" type="string" autocomplete="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="First Name">
           </div>
           <div>
             <label for="last-name" class="sr-only">Last Name</label>
-            <input id="last-name" value={lastName} name="Last Name" type="string" autocomplete="family-name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Last Name">
+            <input id="last-name" bind:value={lastName} name="Last Name" type="string" autocomplete="family-name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Last Name">
           </div>
           <div>
-            <label for="email-address" class="sr-only">Email address</label>
-            <input id="email-address" value={email} name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+            <input bind:value={email} name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
           </div>
           <div>
             <label for="password" class="sr-only">Password</label>
-            <input id="password" value={password} name="password" type="password" autocomplete="password" required class="appearance-none mt-4 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm " placeholder="Password">
+            <input id="password" bind:value={password} name="password" type="password" autocomplete="password" required class="appearance-none mt-4 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm " placeholder="Password">
           </div>
           <div>
             <label for="confirm-password" class="sr-only">Password</label>
-            <input id="confirm-password" value={passwordConfirm} name="password" type="password" autocomplete="confirm-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Confirm Password">
+            <input id="confirm-password" bind:value={passwordConfirm} name="password" type="password" autocomplete="confirm-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Confirm Password">
           </div>
         </div>
         <div>
-          <button type="submit" on:submit={createAccount} class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <button type="submit" on:click={wrapperFunction} class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -40,13 +38,14 @@
             Create Account
           </button>
         </div>
-      </form>
     </div>
   </div>
 
   <script lang="ts">
     import {  User } from "$lib/types"
-    import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+    import { createUserWithEmailAndPassword } from "firebase/auth";
+    import { auth, createDocument } from "../../firebase/firebase";
+    import { goto } from "$app/navigation";
 
     const user: User = new User();
     
@@ -56,26 +55,35 @@
     let password = "";
     let passwordConfirm = "";
 
-    console.log(user);
+    async function createAccount() {
 
-    function createAccount() {
-        return {
-            status: 302,
-            redirect: "/chocolat"
-        };
+      const userData = {
+        firstName: firstName, 
+        lastName: lastName, 
+        email: email
+      }
+
+      createDocument("users", userData, true);
+
+      //probably needs to change the state of the user;
+      
+      goto("/dashboard");
+
     }
-
-    const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage)
-  });
+    
+    function wrapperFunction() {
+     createUserWithEmailAndPassword(auth, email, password)
+     .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        createAccount();
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+      });  
+    }
     
   </script>
