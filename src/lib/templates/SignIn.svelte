@@ -28,7 +28,7 @@
         </div> -->
   
         <div>
-          <button on:click={importUserDocument} type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <button on:click={signIn} type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -49,25 +49,24 @@
     </div>
   </div>
 
-  <script>
+  <script lang="ts">
 
   import { goto } from "$app/navigation";
   import { signInWithEmailAndPassword } from "firebase/auth";
   import { auth, getDocumentByQuery } from "../../firebase/firebase";
-  import { user } from "$lib/store"
+  import store, { user } from "$lib/store"
 
     let email = ""
     let password = ""
 
-    let localUser = $user
-
     function signIn() {
-      console.log("sign in")
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
         if(user) {
+          importUserDocument();
+          store.authStore.set({loggedIn: true})
           goto("/dashboard")
         }
       })
@@ -79,13 +78,12 @@
     }
 
     async function importUserDocument() {
-      console.log(localUser);
       const userData = await getDocumentByQuery("users", "email", "==", email);
       if(userData) {
-        user.update(userData)
+        user.set(userData)
       }
-
-      console.log(user)
     }
+
+
   
   </script>

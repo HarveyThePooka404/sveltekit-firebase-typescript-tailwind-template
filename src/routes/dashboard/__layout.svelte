@@ -1,12 +1,11 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<!--
-  This example requires updating your template:
+<script context="module" lang="ts">
+  import { authGuard } from '$lib/guards';
 
-  ```
-  <html class="h-full bg-gray-100">
-  <body class="h-full">
-  ```
--->
+  export async function load({ url, fetch, session, context }: any): Promise<any> {
+    return await authGuard({ url, fetch, session, context });
+  }
+</script>
+
 <div class="min-h-full">
     <nav class="bg-gray-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,22 +149,14 @@
   </div>
 
 
-  <script context="module">
+  <script>
+  import { goto } from "$app/navigation";
+  import { user }  from "$lib/store"
 
-    import { user }  from "$lib/store"
-    
-    console.log("I went through dashboard though");
-    console.log(user)
-
-    export async function load() {
-      if(user) {
-        return
-      } else {
-        console.log("why not?")
- /*        return {
-            status: 302,
-            redirect: "/"
-        }; */
+    export function load() {
+      if(!$user.isLoggedIn) {
+        goto("/")
       }
-    } 
+    }
+  
 </script>

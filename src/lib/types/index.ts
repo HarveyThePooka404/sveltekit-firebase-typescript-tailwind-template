@@ -10,3 +10,10 @@ export class User {
         this.isLoggedIn = false;
     }
 }
+
+//store related types
+export interface AppState {}
+
+export interface AuthState {
+  loggedIn:       boolean;
+}

@@ -1,16 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, setDoc, addDoc, collection, doc, getDoc, query, where, getDocs} from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC0tl-ziDpHATusTkEWK_lO-t7XAlkh7t0",
-  authDomain: "vue-weekly.firebaseapp.com",
-  databaseURL: "https://vue-weekly-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "vue-weekly",
-  storageBucket: "vue-weekly.appspot.com",
-  messagingSenderId: "668493575554",
-  appId: "1:668493575554:web:c768ca204972d18cb58b9b"
-};
+import firebaseConfig from "./firebaseConfig";
 
 
 const app = initializeApp(firebaseConfig);

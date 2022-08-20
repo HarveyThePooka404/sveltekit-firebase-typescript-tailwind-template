@@ -1,12 +1,37 @@
 import { writable} from "svelte/store"
 
 //type
+import type { User, AppState, AuthState } from "../types/index"
 
-export const count = writable(0);
-
-export const user = writable({
+//#region Utilisateur data
+const initialUser: User = {
     firstName: '', 
     lastName: '', 
     email: '',
     isLoggedIn: false
-})
+}
+
+export const user = writable(initialUser)
+//#endregion
+
+
+//boiler plat for auth state
+
+  const initialAppState: AppState = {}
+  
+  const initialAuthState: AuthState = {
+    loggedIn:       false,
+  }
+   
+  const authStore = writable(initialAuthState);
+  const appState = writable(initialAppState);
+  
+  const resetAppState = (): void => appState.update(() => initialAppState);
+  const resetAuthState = (): void => authStore.update(() => initialAuthState);
+  
+  export default {
+    authStore,
+    appState,
+    initialAppState,
+    initialAuthState,
+  }
