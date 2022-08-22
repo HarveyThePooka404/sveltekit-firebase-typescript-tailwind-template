@@ -8,6 +8,10 @@
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
-	}
+		"strict": true,
+		"baseUrl": ".",
+	},
+	"files": [
+		"./src/lib/types/additional-svelte-jsx.d.ts"
+	]
 }
