@@ -57,7 +57,6 @@
       <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
     </div>
     <button type="button" class="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-      <span class="sr-only">View notifications</span>
       <BellIcon />
     </button>
 </div>
