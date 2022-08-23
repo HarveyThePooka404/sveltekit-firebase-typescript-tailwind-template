@@ -1,14 +1,14 @@
 <script lang="ts">
 
-import { createEventDispatcher } from 'svelte';
-const dispatch = createEventDispatcher();
+		import { createEventDispatcher } from 'svelte';
+		const dispatch = createEventDispatcher()
 
-export function emit() {
-    dispatch("click")
-}
+		function emitClick() {
+			dispatch("click")
+		} 
 </script>
 
-<div class="-mr-2 flex md:hidden" on:click={emit}>
+<div id="button" class="-mr-2 flex md:hidden" on:click={emitClick}>
 	<!-- Mobile menu button -->
 	<button
 		type="button"
