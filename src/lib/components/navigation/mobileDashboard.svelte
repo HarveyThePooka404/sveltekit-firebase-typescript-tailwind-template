@@ -22,7 +22,7 @@
 			<MobileMenu on:click={showMenu}/>
 		</div>
 		<!-- Mobile menu, show/hide based on menu state. -->
-		<div class="{menuVisible ? 'block bg-black'  : 'hidden'}" id="mobile-menu">
+		<div class="{menuVisible ? 'block'  : 'hidden'}" id="mobile-menu">
 			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 md:hidden">
 				<NavigationMenu />
 			</div>
@@ -32,9 +32,3 @@
 		</div>
 	</div>
 </nav>
-
-<style>
-	bg-black {
-		background-color: black;
-	}
-</style>

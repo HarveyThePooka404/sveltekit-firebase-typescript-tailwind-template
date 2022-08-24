@@ -1,4 +1,4 @@
-<div class="card w-96 bg-base-100 shadow-xl">
+<div class="card w-96 bg-base-100 shadow-xl max-w-xs">
     <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
     <div class="card-body">
       <h2 class="card-title">Shoes!</h2>
