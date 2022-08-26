@@ -1,38 +1,32 @@
-# create-svelte
+## What’s this?
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is a kick-start template for an application in SvelteKit (using Typescript), with pre-installed Tailwind and DaisyUI - and Firebase for your database. 
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## How to use?
+To get started, install all dependencies 
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# install all dependencies
+npm install
 ```
 
-## Building
+## Add Firebase
+You can easily add Firebase by adding a ‘firebaseConfig.ts’ file to the Firebase folder. This template comes with Email and Password authentication out-of-the-box. 
 
-To create a production version of your app:
+When an authentication is created, a user document with firstName and lastName will also be created automatically. 
 
-```bash
-npm run build
-```
+## Tailwind and DaisyUI
+The template is based on [`TailwindUI components`](https://tailwindui.com/components) and uses [`DaisyUI`](https://daisyui.com/) as a component library. 
 
-You can preview the production build with `npm run preview`.
+## Folder structure
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+In directives, you can find the [`‘clickOutside.ts’`](https://svelte.dev/repl/0ace7a508bd843b798ae599940a91783?version=3.16.7) directive - used on the dropdown menu component
+
+In guards, you can find [`‘authGuard’`](https://www.reddit.com/r/sveltejs/comments/mor0qd/protect_routes_in_sveltekit/) used on protected routes. 
+
+
+
+## What’s next?
+You can create your own pages in the routes folder, and update the navigation route in lib > components > menu
+
+Good luck and have fun! 
